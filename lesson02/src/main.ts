@@ -1,11 +1,19 @@
-let username = "Tyrell";
-console.log(username);
-let a: number = 12;
-let b: number = 6;
-let c: number = 2;
+let myName: string = "Colton";
+let meaningOfLife: number;
+let isLoading: boolean;
+let album: any;
+//let album: string | number;
 
-console.log(a / b)
+myName = "Tyrell";
+meaningOfLife = 42;
+isLoading = true;
+album = "Van Halen";
 
-console.log(c * b)
+const sum = (a: number, b: string) => {
+  return a + b;
+};
 
-//noEmitOnError in tsconfig stops compiler from creating js.
+let postId: string | number;
+let isActive: number | boolean;
+
+let re: RegExp = /\w+/g
