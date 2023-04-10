@@ -1,104 +1,34 @@
-// Type Aliases
-type stringOrNumber = string | number;
+type One = string;
+type Two = string | number;
+type Three = "hello";
 
-type stringOrNumberArray = (string | number)[];
+// convert to more/less specific
+let a: One = "hello";
+let b = a as Two; // less specific type
+let c = a as Three; // more specific
 
-type Guitarist = {
-  name?: string;
-  active: boolean; //makes the active optional
-  albums: (string | number)[];
-};
+let d = <One>"world";
+let e = <string | number>"world"; // syntax won't work in React
 
-type UserId = stringOrNumber;
-
-// Literal Types
-
-let myName: "Colton";
-
-let userName: "Colton" | "Tyrell" | "Hyland";
-
-userName = "Tyrell";
-
-// Functions
-
-const sum = (a: number, b: number): number => {
-  return a + b;
-};
-
-const logMsg = (message: any): void => {
-  console.log(message);
-};
-
-logMsg("Hello");
-logMsg(sum(2, 3));
-
-let difference = function (c: number, d: number): number {
-  return c - d;
-};
-
-type mathFunction = (a: number, b: number) => number;
-
-// interface mathFunction {
-//   (a: number, b: number): number
-// }
-
-let multiply: mathFunction = function (e, f) {
-  return e * f;
-};
-
-logMsg(multiply(2, 2));
-
-// Optional parameters
-//make optional param last in list
-
-const addAll = (a: number, b: number, c?: number): number => {
-  if (typeof c !== "undefined") {
-    return a + b + c;
-  }
-  return a + b;
-};
-
-// default param value
-const sumAll = (a: number = 10, b: number, c: number = 2): number => {
-  return a + b + c;
-};
-
-logMsg(addAll(2, 3, 2));
-logMsg(addAll(2, 3));
-logMsg(sumAll(2, 3));
-logMsg(sumAll(undefined, 3));
-
-// Rest Parameters
-// rest should come at the end
-const total = (a: number, ...nums: number[]): number => {
-  return a + nums.reduce((prev, curr) => prev + curr);
-};
-
-logMsg(total(1, 2, 3, 4));
-
-// Type never
-
-const createError = (errMsg: string): never => {
-  throw new Error(errMsg);
-};
-
-const infinite = () => {
-  let i: number = 1;
-  while (true) {
-    i++;
-    if (i > 100) break; //makes the return type void isntead of never
-  }
-};
-
-// custom type guard
-const isNumber = (value: any): boolean => {
-  return typeof value === 'number'
-    ? true : false
+const addOrConcat = (a: number, b: number, c: 'add' | 'concat'): number | string => {
+  if (c === 'add') return a + b;
+  return '' + a + b;
 }
 
-// use of the never type
-const numberOrString = (value: number | string): string => {
-  if (typeof value === 'string') return 'string'
-  if (typeof value === 'number') return 'number'
-  return createError('This should never happen!')
-}
+//tells typescript to ignore type error
+let myVal: string = addOrConcat(2, 2, 'concat') as string;
+
+// Be careful, we told typescript there is no problem - but a string
+// is returned.
+let nextVal: number = addOrConcat(2, 2, 'concat') as number;
+
+//10 as string;
+(10 as unknown) as string; // forced Casting
+
+// The Document Object Model (DOM)
+const img = document.querySelector('img')!; // non-null assertion
+const myImg = document.getElementById('#img') as HTMLImageElement;
+const nextImg = <HTMLImageElement>document.getElementById('#img'); // does not work in react
+
+img.src;
+myImg.src
