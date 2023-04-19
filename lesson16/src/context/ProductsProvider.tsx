@@ -38,7 +38,7 @@ export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
 
   useEffect(() => {
     const fetchProducts = async (): Promise<ProductType[]> => {
-      const data = await fetch("http://localhost:3500/products")
+      const data = await fetch("http://localhost:3500/products") //npx json-seerver -w data/products.json -p 3500
         .then((res) => {
           return res.json();
         })
