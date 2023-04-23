@@ -101,9 +101,9 @@ const useCartContext = (initCartState: CartStateType) => {
     return previousValue + cartItem.qty;
   }, 0);
 
-  const totalPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  const totalPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   }).format(
     state.cart.reduce((previousValue, cartItem) => {
       return previousValue + cartItem.qty * cartItem.price;
@@ -129,16 +129,17 @@ const initCartContextState: UseCartContextType = {
   cart: [],
 };
 
-export const CartContext = createContext<UseCartContextType>(initCartContextState)
+export const CartContext =
+  createContext<UseCartContextType>(initCartContextState);
 
-type ChildrenType = { children?: ReactElement | ReactElement[] }
+type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const CartProvider = ({ children }: ChildrenType): ReactElement => {
   return (
     <CartContext.Provider value={useCartContext(initCartState)}>
       {children}
     </CartContext.Provider>
-  )
-}
+  );
+};
 
-export default CartContext
+export default CartContext;
